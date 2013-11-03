@@ -6,7 +6,7 @@ Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
 Version:	2013.7
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/ostree/%{version}/%{name}-%{version}.tar.xz
@@ -165,6 +165,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/ostree-prepare-root
 %attr(755,root,root) %{_sbindir}/ostree-remount
 %{systemdunitdir}/ostree-remount.service
+%dir %{_prefix}/lib/dracut/modules.d/98ostree
 %attr(755,root,root) %{_prefix}/lib/dracut/modules.d/98ostree/module-setup.sh
 %{_prefix}/lib/dracut/modules.d/98ostree/ostree-prepare-root.service
 %config(noreplace) %verify(not md5 mtime size) /etc/dracut.conf.d/ostree.conf
