@@ -5,12 +5,12 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2013.7
-Release:	2
+Version:	2014.1
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/ostree/%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	777355574c6b9726fe8c97e6e3d12f99
+# Source0-md5:	587022ae6243f62882631377048c50f7
 URL:		https://wiki.gnome.org/OSTree
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.63
@@ -104,6 +104,7 @@ Obsługa OSTree dla Dracuta.
 %build
 # rebuild ac/am to get as-needed working
 %{__libtoolize}
+%{__gtkdocize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
@@ -164,8 +165,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/ostree-prepare-root
 %attr(755,root,root) %{_sbindir}/ostree-remount
+%{systemdunitdir}/ostree-prepare-root.service
 %{systemdunitdir}/ostree-remount.service
 %dir %{_prefix}/lib/dracut/modules.d/98ostree
 %attr(755,root,root) %{_prefix}/lib/dracut/modules.d/98ostree/module-setup.sh
-%{_prefix}/lib/dracut/modules.d/98ostree/ostree-prepare-root.service
 %config(noreplace) %verify(not md5 mtime size) /etc/dracut.conf.d/ostree.conf
