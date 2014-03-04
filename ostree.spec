@@ -5,12 +5,12 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2014.1
+Version:	2014.2
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/ostree/%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	587022ae6243f62882631377048c50f7
+# Source0-md5:	721114f36ac63869426f3d6cac9d07d7
 URL:		https://wiki.gnome.org/OSTree
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.63
@@ -20,6 +20,7 @@ BuildRequires:	gpgme-devel >= 1.1.8
 BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libarchive-devel >= 2.8.0
+BuildRequires:	libselinux-devel >= 2.2
 BuildRequires:	libsoup-devel >= 2.39.1
 BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
@@ -30,6 +31,7 @@ BuildRequires:	xz
 Requires:	glib2 >= 1:2.34.0
 Requires:	gpgme >= 1.1.8
 Requires:	libarchive >= 2.8.0
+Requires:	libselinux >= 2.2
 Requires:	libsoup >= 2.39.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
