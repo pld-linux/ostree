@@ -1,12 +1,12 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static libraries
-#
+
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
 Version:	2014.3
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/ostree/%{version}/%{name}-%{version}.tar.xz
@@ -16,8 +16,8 @@ BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	glib2-devel >= 1:2.34.0
-BuildRequires:	gpgme-devel >= 1.1.8
 BuildRequires:	gobject-introspection-devel >= 1.34.0
+BuildRequires:	gpgme-devel >= 1.1.8
 BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libarchive-devel >= 2.8.0
 BuildRequires:	libselinux-devel >= 2.2
@@ -80,6 +80,9 @@ Statyczna biblioteka OSTree.
 Summary:	OSTree API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki OSTree
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 OSTree API documentation.
