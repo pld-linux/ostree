@@ -43,6 +43,7 @@ Requires:	gpgme >= 1.1.8
 Requires:	libarchive >= 2.8.0
 Requires:	libselinux >= 2.2
 Requires:	libsoup >= 2.39.1
+Requires:	xz-libs >= 5.0.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
