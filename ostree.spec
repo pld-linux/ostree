@@ -5,21 +5,29 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2014.3
-Release:	2
+Version:	2015.5
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/ostree/%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	cdf2f2e8809b44a554df1ee9bf06c047
+#Source0:	http://ftp.gnome.org/pub/GNOME/sources/ostree/%{version}/%{name}-%{version}.tar.xz
+Source0:	https://github.com/GNOME/ostree/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	8709f98decbc40c9af8c1abd1c5552b3
+# official https://git.gnome.org/browse/libglnx
+Source1:	https://github.com/GNOME/libglnx/archive/371172bcfd869867cf1c2847fcbbb3aa22adddb6/libglnx.tar.gz
+# Source1-md5:	2de1e869bbf3a0b77b88bfe09637c556
+Source2:	https://github.com/mendsley/bsdiff/archive/1edf9f656850c0c64dae260960fabd8249ea9c60/bsdiff.tar.gz
+# Source2-md5:	38464abb5e66b0c8dfbcf94fba6a8004
 URL:		https://wiki.gnome.org/OSTree
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.11
-BuildRequires:	glib2-devel >= 1:2.34.0
+BuildRequires:	automake >= 1:1.13
+BuildRequires:	e2fsprogs-devel
+BuildRequires:	glib2-devel >= 1:2.40.0
 BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gpgme-devel >= 1.1.8
 BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libarchive-devel >= 2.8.0
+BuildRequires:	libgsystem-devel >= 2015.1
 BuildRequires:	libselinux-devel >= 2.2
 BuildRequires:	libsoup-devel >= 2.39.1
 BuildRequires:	libtool >= 2:2.2.4
@@ -28,7 +36,9 @@ BuildRequires:	pkgconfig
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Requires:	glib2 >= 1:2.34.0
+BuildRequires:	xz-devel >= 5.0.5
+BuildRequires:	zlib-devel
+Requires:	glib2 >= 1:2.40.0
 Requires:	gpgme >= 1.1.8
 Requires:	libarchive >= 2.8.0
 Requires:	libselinux >= 2.2
@@ -56,7 +66,7 @@ Summary:	Header files for OSTree library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki OSTree
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.34.0
+Requires:	glib2-devel >= 1:2.40.0
 
 %description devel
 Header files for OSTree library.
@@ -90,6 +100,19 @@ OSTree API documentation.
 %description apidocs -l pl.UTF-8
 Dokumentacja API biblioteki OSTree.
 
+%package grub2
+Summary:	GRUB2 integration for OSTree
+Summary(pl.UTF-8):	Integracja bootloadera GRUB2 z OSTree
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	grub2
+
+%description grub2
+GRUB2 integration for OSTree.
+
+%description grub2 -l pl.UTF-8
+Integracja bootloadera GRUB2 z OSTree.
+
 %package -n dracut-ostree
 Summary:	OSTree support for Dracut
 Summary(pl.UTF-8):	Obsługa OSTree dla Dracuta
@@ -104,10 +127,16 @@ OSTree support for Dracut.
 Obsługa OSTree dla Dracuta.
 
 %prep
-%setup -q
+%setup -q -a1 -a2
+rmdir libglnx bsdiff
+%{__mv} libglnx-* libglnx
+%{__mv} bsdiff-* bsdiff
+
+# see autogen.sh
+sed -e 's,$(libglnx_srcpath),'./libglnx,g < libglnx/Makefile-libglnx.am >libglnx/Makefile-libglnx.am.inc
+sed -e 's,$(libbsdiff_srcpath),'./bsdiff,g < bsdiff/Makefile-bsdiff.am >bsdiff/Makefile-bsdiff.am.inc
 
 %build
-# rebuild ac/am to get as-needed working
 %{__libtoolize}
 %{__gtkdocize}
 %{__aclocal} -I m4
@@ -148,6 +177,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/girepository-1.0/OSTree-1.0.typelib
 %{_datadir}/ostree
 %{_mandir}/man1/ostree.1*
+%{_mandir}/man1/ostree-*.1*
+%{_mandir}/man5/ostree.repo.5*
+%{_mandir}/man5/ostree.repo-config.5*
 
 %files devel
 %defattr(644,root,root,755)
@@ -165,6 +197,12 @@ rm -rf $RPM_BUILD_ROOT
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/ostree
+
+%files grub2
+%defattr(644,root,root,755)
+/etc/grub.d/15_ostree
+%dir %{_libexecdir}/ostree
+%attr(755,root,root) %{_libexecdir}/ostree/grub2-15_ostree
 
 %files -n dracut-ostree
 %defattr(644,root,root,755)
