@@ -1,0 +1,22 @@
+--- ostree-2015.5/src/boot/grub2-15_ostree~	2015-04-07 22:18:45.000000000 +0200
++++ ostree-2015.5/src/boot/grub2-15_ostree	2015-04-26 22:28:48.389129605 +0200
+@@ -35,7 +35,7 @@
+ # it's a lot better than reimplementing the config-generating bits of
+ # OSTree in shell script.
+ 
+-. /usr/share/grub/grub-mkconfig_lib
++. /lib/grub/grub-mkconfig_lib
+ 
+ DEVICE=${GRUB_DEVICE_BOOT:-${GRUB_DEVICE}}
+ 
+--- ostree-2015.5/Makefile-boot.am~	2015-04-07 22:18:45.000000000 +0200
++++ ostree-2015.5/Makefile-boot.am	2015-04-26 22:30:39.565800921 +0200
+@@ -45,7 +45,7 @@
+ install-grub2-config-hook:
+ 	mkdir -p $(DESTDIR)$(grub2configdir)
+ 	ln -sf $(pkglibexecdir)/grub2-15_ostree $(DESTDIR)$(grub2configdir)/15_ostree
+-grub2configdir = $(sysconfdir)/grub.d
++grub2configdir = /lib/grub.d
+ INSTALL_DATA_HOOKS += install-grub2-config-hook
+ endif
+ 

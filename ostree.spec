@@ -6,7 +6,7 @@ Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
 Version:	2015.5
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 #Source0:	http://ftp.gnome.org/pub/GNOME/sources/ostree/%{version}/%{name}-%{version}.tar.xz
@@ -17,6 +17,7 @@ Source1:	https://github.com/GNOME/libglnx/archive/371172bcfd869867cf1c2847fcbbb3
 # Source1-md5:	2de1e869bbf3a0b77b88bfe09637c556
 Source2:	https://github.com/mendsley/bsdiff/archive/1edf9f656850c0c64dae260960fabd8249ea9c60/bsdiff.tar.gz
 # Source2-md5:	38464abb5e66b0c8dfbcf94fba6a8004
+Patch0:		grub2-pld.patch
 URL:		https://wiki.gnome.org/OSTree
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.63
@@ -129,6 +130,7 @@ Obsługa OSTree dla Dracuta.
 
 %prep
 %setup -q -a1 -a2
+%patch0 -p1
 rmdir libglnx bsdiff
 %{__mv} libglnx-* libglnx
 %{__mv} bsdiff-* bsdiff
@@ -201,7 +203,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files grub2
 %defattr(644,root,root,755)
-/etc/grub.d/15_ostree
+/lib/grub.d/15_ostree
 %dir %{_libexecdir}/ostree
 %attr(755,root,root) %{_libexecdir}/ostree/grub2-15_ostree
 
