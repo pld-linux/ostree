@@ -5,16 +5,16 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2015.9
+Version:	2016.1
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0:	http://ftp.gnome.org/pub/GNOME/sources/ostree/%{version}/%{name}-%{version}.tar.xz
 Source0:	https://github.com/GNOME/ostree/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	fdfd4f959ba6555391a674297b30bad2
+# Source0-md5:	57d48d855980b85be992cc7050026314
 # official https://git.gnome.org/browse/libglnx
-Source1:	https://github.com/GNOME/libglnx/archive/e684ef07f03dd563310788c90b3cdb00bac551eb/libglnx.tar.gz
-# Source1-md5:	957d5a7d7bc43ca73d81809112c5176f
+Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
+# Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
 Source2:	https://github.com/mendsley/bsdiff/archive/1edf9f656850c0c64dae260960fabd8249ea9c60/bsdiff.tar.gz
 # Source2-md5:	38464abb5e66b0c8dfbcf94fba6a8004
 Patch0:		grub2-pld.patch
