@@ -1,5 +1,5 @@
---- ostree-2015.5/src/boot/grub2-15_ostree~	2015-04-07 22:18:45.000000000 +0200
-+++ ostree-2015.5/src/boot/grub2-15_ostree	2015-04-26 22:28:48.389129605 +0200
+--- ostree-2016.6/src/boot/grub2/grub2-15_ostree~	2015-04-07 22:18:45.000000000 +0200
++++ ostree-2016.6/src/boot/grub2/grub2-15_ostree	2015-04-26 22:28:48.389129605 +0200
 @@ -35,7 +35,7 @@
  # it's a lot better than reimplementing the config-generating bits of
  # OSTree in shell script.
