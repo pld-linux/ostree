@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2016.6
-Release:	2
+Version:	2016.14
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	9e05076e5b77afb0533c61fde240a3e1
+# Source0-md5:	2b9142915f88e8dc5ef5fc99f789d84c
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -215,8 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n dracut-ostree
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_sbindir}/ostree-prepare-root
-%attr(755,root,root) %{_sbindir}/ostree-remount
+%dir %{_prefix}/lib/ostree
+%attr(755,root,root) %{_prefix}/lib/ostree/ostree-prepare-root
+%attr(755,root,root) %{_prefix}/lib/ostree/ostree-remount
 %{systemdunitdir}/ostree-prepare-root.service
 %{systemdunitdir}/ostree-remount.service
 %dir %{_prefix}/lib/dracut/modules.d/98ostree
