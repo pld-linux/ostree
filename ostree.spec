@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2016.14
+Version:	2017.6
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
-Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	2b9142915f88e8dc5ef5fc99f789d84c
+Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
+# Source0-md5:	e9ed2db2e16fac53bc959654581c0e0c
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -22,6 +22,8 @@ URL:		https://wiki.gnome.org/OSTree
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.13
+BuildRequires:	bison
+BuildRequires:	curl-devel >= 7.29.0
 BuildRequires:	e2fsprogs-devel
 BuildRequires:	glib2-devel >= 1:2.40.0
 BuildRequires:	gobject-introspection-devel >= 1.34.0
@@ -37,6 +39,7 @@ BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
 BuildRequires:	pkgconfig
 BuildRequires:	sed >= 4.0
+BuildRequires:	systemd-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	xz-devel >= 5.0.5
@@ -131,7 +134,7 @@ OSTree support for Dracut.
 Obsługa OSTree dla Dracuta.
 
 %prep
-%setup -q
+%setup -q -n libostree-%{version}
 %patch0 -p1
 
 # for non-release checkouts
@@ -146,7 +149,7 @@ sed -e 's,$(libbsdiff_srcpath),bsdiff,g' < bsdiff/Makefile-bsdiff.am >bsdiff/Mak
 %build
 %{__libtoolize}
 %{__gtkdocize}
-%{__aclocal} -I m4
+%{__aclocal} -I buildutil -I libglnx
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -183,6 +186,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libostree-1.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libostree-1.so.1
 %{_libdir}/girepository-1.0/OSTree-1.0.typelib
+%dir %{_libexecdir}/libostree
+%attr(755,root,root) %{_libexecdir}/libostree/ostree-trivial-httpd
 %{_datadir}/ostree
 %{_mandir}/man1/ostree.1*
 %{_mandir}/man1/ostree-*.1*
@@ -210,8 +215,7 @@ rm -rf $RPM_BUILD_ROOT
 %files grub2
 %defattr(644,root,root,755)
 /lib/grub.d/15_ostree
-%dir %{_libexecdir}/ostree
-%attr(755,root,root) %{_libexecdir}/ostree/grub2-15_ostree
+%attr(755,root,root) %{_libexecdir}/libostree/grub2-15_ostree
 
 %files -n dracut-ostree
 %defattr(644,root,root,755)
@@ -220,6 +224,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_prefix}/lib/ostree/ostree-remount
 %{systemdunitdir}/ostree-prepare-root.service
 %{systemdunitdir}/ostree-remount.service
+%attr(755,root,root) /lib/systemd/system-generators/ostree-system-generator
 %dir %{_prefix}/lib/dracut/modules.d/98ostree
 %attr(755,root,root) %{_prefix}/lib/dracut/modules.d/98ostree/module-setup.sh
 %config(noreplace) %verify(not md5 mtime size) /etc/dracut.conf.d/ostree.conf
