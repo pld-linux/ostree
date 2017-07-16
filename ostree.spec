@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2017.6
+Version:	2017.7
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	e9ed2db2e16fac53bc959654581c0e0c
+# Source0-md5:	8e274eeb5afd09db48230a949fb63f36
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
