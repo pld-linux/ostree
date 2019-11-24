@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2017.7
+Version:	2019.5
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	8e274eeb5afd09db48230a949fb63f36
+# Source0-md5:	5eea359a4f0a46709abc6f9d05877785
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -22,6 +22,8 @@ URL:		https://wiki.gnome.org/OSTree
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.13
+BuildRequires:	avahi-devel >= 0.6.31
+BuildRequires:	avahi-glib-devel >= 0.6.31
 BuildRequires:	bison
 BuildRequires:	curl-devel >= 7.29.0
 BuildRequires:	e2fsprogs-devel
@@ -31,7 +33,6 @@ BuildRequires:	gpgme-devel >= 1.1.8
 BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libarchive-devel >= 2.8.0
 BuildRequires:	libfuse-devel >= 2.9.2
-BuildRequires:	libgsystem-devel >= 2015.1
 BuildRequires:	libmount >= 2.23.0
 BuildRequires:	libselinux-devel >= 2.2
 BuildRequires:	libsoup-devel >= 2.39.1
@@ -39,17 +40,17 @@ BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
 BuildRequires:	pkgconfig
 BuildRequires:	sed >= 4.0
-BuildRequires:	systemd-devel
+BuildRequires:	systemd-devel >= 1:209
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-BuildRequires:	xz-devel >= 5.0.5
+BuildRequires:	xz-devel >= 1:5.0.5
 BuildRequires:	zlib-devel
 Requires:	glib2 >= 1:2.40.0
 Requires:	gpgme >= 1.1.8
 Requires:	libarchive >= 2.8.0
 Requires:	libselinux >= 2.2
 Requires:	libsoup >= 2.39.1
-Requires:	xz-libs >= 5.0.5
+Requires:	xz-libs >= 1:5.0.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -119,6 +120,19 @@ GRUB2 integration for OSTree.
 
 %description grub2 -l pl.UTF-8
 Integracja bootloadera GRUB2 z OSTree.
+
+%package -n bash-completion-ostree
+Summary:	Bash completion for ostree command
+Summary(pl.UTF-8):	Bashowe uzupełnianie parametrów polecenia ostree
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion >= 2.0
+
+%description -n bash-completion-ostree
+Bash completion for ostree command.
+
+%description -n bash-completion-ostree -l pl.UTF-8
+Bashowe uzupełnianie parametrów polecenia ostree.
 
 %package -n dracut-ostree
 Summary:	OSTree support for Dracut
@@ -217,13 +231,20 @@ rm -rf $RPM_BUILD_ROOT
 /lib/grub.d/15_ostree
 %attr(755,root,root) %{_libexecdir}/libostree/grub2-15_ostree
 
+%files -n bash-completion-ostree
+%defattr(644,root,root,755)
+%{bash_compdir}/ostree
+
 %files -n dracut-ostree
 %defattr(644,root,root,755)
 %dir %{_prefix}/lib/ostree
 %attr(755,root,root) %{_prefix}/lib/ostree/ostree-prepare-root
 %attr(755,root,root) %{_prefix}/lib/ostree/ostree-remount
+%{systemdunitdir}/ostree-finalize-staged.path
+%{systemdunitdir}/ostree-finalize-staged.service
 %{systemdunitdir}/ostree-prepare-root.service
 %{systemdunitdir}/ostree-remount.service
+%{systemdtmpfilesdir}/ostree-tmpfiles.conf
 %attr(755,root,root) /lib/systemd/system-generators/ostree-system-generator
 %dir %{_prefix}/lib/dracut/modules.d/98ostree
 %attr(755,root,root) %{_prefix}/lib/dracut/modules.d/98ostree/module-setup.sh
