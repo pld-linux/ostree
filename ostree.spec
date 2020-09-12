@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2020.3
+Version:	2020.6
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	631faed6c6bf9167947ca4c759c6cd8b
+# Source0-md5:	cd512208fba2cfd122edffbe398cea49
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -33,8 +33,10 @@ BuildRequires:	gpgme-devel >= 1.1.8
 BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libarchive-devel >= 2.8.0
 BuildRequires:	libfuse-devel >= 2.9.2
-BuildRequires:	libmount >= 2.23.0
+BuildRequires:	libgpg-error-devel
+BuildRequires:	libmount-devel >= 2.23.0
 BuildRequires:	libselinux-devel >= 2.2
+BuildRequires:	libsodium-devel >= 1.0.14
 BuildRequires:	libsoup-devel >= 2.39.1
 BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
@@ -48,7 +50,9 @@ BuildRequires:	zlib-devel
 Requires:	glib2 >= 1:2.40.0
 Requires:	gpgme >= 1.1.8
 Requires:	libarchive >= 2.8.0
+Requires:	libmount >= 2.23.0
 Requires:	libselinux >= 2.2
+Requires:	libsodium >= 1.0.14
 Requires:	libsoup >= 2.39.1
 Requires:	xz-libs >= 1:5.0.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -173,6 +177,7 @@ sed -e 's,$(libbsdiff_srcpath),bsdiff,g' < bsdiff/Makefile-bsdiff.am >bsdiff/Mak
 	--disable-silent-rules \
 	%{?with_static_libs:--enable-static} \
 	--with-dracut \
+	--with-ed25519-libsodium \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-systemdsystemunitdir=%{systemdunitdir}
 %{__make}
