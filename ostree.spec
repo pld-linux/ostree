@@ -102,9 +102,7 @@ Statyczna biblioteka OSTree.
 Summary:	OSTree API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki OSTree
 Group:		Documentation
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 OSTree API documentation.
