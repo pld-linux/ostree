@@ -1,17 +1,17 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# don't build static libraries
+%bcond_without	static_libs	# static library
 
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2020.6
+Version:	2021.1
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	cd512208fba2cfd122edffbe398cea49
+# Source0-md5:	21d848685ae51a9fc4d182d00c13b0fc
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -41,6 +41,8 @@ BuildRequires:	libsoup-devel >= 2.39.1
 BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
+BuildRequires:	rpmbuild(macros) >= 1.644
 BuildRequires:	sed >= 4.0
 BuildRequires:	systemd-devel >= 1:209
 BuildRequires:	tar >= 1:1.22
@@ -116,6 +118,7 @@ Summary(pl.UTF-8):	Integracja bootloadera GRUB2 z OSTree
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	grub2
+BuildArch:	noarch
 
 %description grub2
 GRUB2 integration for OSTree.
@@ -129,6 +132,7 @@ Summary(pl.UTF-8):	Bashowe uzupełnianie parametrów polecenia ostree
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	bash-completion >= 2.0
+BuildArch:	noarch
 
 %description -n bash-completion-ostree
 Bash completion for ostree command.
