@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2021.1
+Version:	2021.4
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	21d848685ae51a9fc4d182d00c13b0fc
+# Source0-md5:	a0c91b46e70efef3247df2a9020304b8
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -27,7 +27,7 @@ BuildRequires:	avahi-glib-devel >= 0.6.31
 BuildRequires:	bison
 BuildRequires:	curl-devel >= 7.29.0
 BuildRequires:	e2fsprogs-devel
-BuildRequires:	glib2-devel >= 1:2.40.0
+BuildRequires:	glib2-devel >= 1:2.44.0
 BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gpgme-devel >= 1.1.8
 BuildRequires:	gtk-doc >= 1.15
@@ -49,7 +49,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	xz-devel >= 1:5.0.5
 BuildRequires:	zlib-devel
-Requires:	glib2 >= 1:2.40.0
+Requires:	glib2 >= 1:2.44.0
 Requires:	gpgme >= 1.1.8
 Requires:	libarchive >= 2.8.0
 Requires:	libmount >= 2.23.0
@@ -80,7 +80,7 @@ Summary:	Header files for OSTree library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki OSTree
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.40.0
+Requires:	glib2-devel >= 1:2.44.0
 
 %description devel
 Header files for OSTree library.
