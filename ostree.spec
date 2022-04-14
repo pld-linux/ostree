@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2021.6
+Version:	2022.2
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	7fbc23549c41dceb3a91e94944477325
+# Source0-md5:	9d391f1d8cceb55ae25d1e413207a7bf
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -32,7 +32,7 @@ BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gpgme-devel >= 1.1.8
 BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libarchive-devel >= 2.8.0
-BuildRequires:	libfuse-devel >= 2.9.2
+BuildRequires:	libfuse3-devel >= 3.1.1
 BuildRequires:	libgpg-error-devel
 BuildRequires:	libmount-devel >= 2.23.0
 BuildRequires:	libselinux-devel >= 2.2
@@ -52,6 +52,7 @@ BuildRequires:	zlib-devel
 Requires:	glib2 >= 1:2.44.0
 Requires:	gpgme >= 1.1.8
 Requires:	libarchive >= 2.8.0
+Requires:	libfuse3 >= 3.1.1
 Requires:	libmount >= 2.23.0
 Requires:	libselinux >= 2.2
 Requires:	libsodium >= 1.0.14
@@ -209,6 +210,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/girepository-1.0/OSTree-1.0.typelib
 %dir %{_libexecdir}/libostree
 %attr(755,root,root) %{_libexecdir}/libostree/ostree-trivial-httpd
+%attr(755,root,root) %{_libexecdir}/libostree/s390x-se-luks-gencpio
 %{_datadir}/ostree
 %{_mandir}/man1/ostree.1*
 %{_mandir}/man1/ostree-*.1*
