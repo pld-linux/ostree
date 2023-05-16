@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2022.4
+Version:	2023.2
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	c574320b0834c88bfc11cafc09ddfe10
+# Source0-md5:	4e8b1ddb694b7bbca76c94372992bf22
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -28,8 +28,8 @@ BuildRequires:	bison
 BuildRequires:	curl-devel >= 7.29.0
 BuildRequires:	e2fsprogs-devel
 BuildRequires:	glib2-devel >= 1:2.66.0
-BuildRequires:	gobject-introspection-devel >= 1.34.0
-BuildRequires:	gpgme-devel >= 1.1.8
+BuildRequires:	gobject-introspection-devel >= 1.51.5
+BuildRequires:	gpgme-devel >= 1.8.0
 BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libarchive-devel >= 2.8.0
 BuildRequires:	libfuse3-devel >= 3.1.1
@@ -50,7 +50,7 @@ BuildRequires:	xz
 BuildRequires:	xz-devel >= 1:5.0.5
 BuildRequires:	zlib-devel
 Requires:	glib2 >= 1:2.66.0
-Requires:	gpgme >= 1.1.8
+Requires:	gpgme >= 1.8.0
 Requires:	libarchive >= 2.8.0
 Requires:	libfuse3 >= 3.1.1
 Requires:	libmount >= 2.23.0
@@ -210,7 +210,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/girepository-1.0/OSTree-1.0.typelib
 %dir %{_libexecdir}/libostree
 %attr(755,root,root) %{_libexecdir}/libostree/ostree-trivial-httpd
-%attr(755,root,root) %{_libexecdir}/libostree/s390x-se-luks-gencpio
 %{_datadir}/ostree
 %{_mandir}/man1/ostree.1*
 %{_mandir}/man1/ostree-*.1*
@@ -252,6 +251,7 @@ rm -rf $RPM_BUILD_ROOT
 %{systemdunitdir}/ostree-boot-complete.service
 %{systemdunitdir}/ostree-finalize-staged.path
 %{systemdunitdir}/ostree-finalize-staged.service
+%{systemdunitdir}/ostree-finalize-staged-hold.service
 %{systemdunitdir}/ostree-prepare-root.service
 %{systemdunitdir}/ostree-remount.service
 %{systemdtmpfilesdir}/ostree-tmpfiles.conf
