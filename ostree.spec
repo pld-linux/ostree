@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2023.2
+Version:	2023.5
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	4e8b1ddb694b7bbca76c94372992bf22
+# Source0-md5:	ef438168c8e43fc9986b9333cda26504
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -37,7 +37,8 @@ BuildRequires:	libgpg-error-devel
 BuildRequires:	libmount-devel >= 2.23.0
 BuildRequires:	libselinux-devel >= 2.2
 BuildRequires:	libsodium-devel >= 1.0.14
-BuildRequires:	libsoup-devel >= 2.39.1
+# for ostree-trivial-httpd
+BuildRequires:	libsoup3-devel >= 3.0.0
 BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
 BuildRequires:	pkgconfig
@@ -49,6 +50,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	xz-devel >= 1:5.0.5
 BuildRequires:	zlib-devel
+Requires:	curl-libs >= 7.29.0
 Requires:	glib2 >= 1:2.66.0
 Requires:	gpgme >= 1.8.0
 Requires:	libarchive >= 2.8.0
@@ -56,7 +58,6 @@ Requires:	libfuse3 >= 3.1.1
 Requires:	libmount >= 2.23.0
 Requires:	libselinux >= 2.2
 Requires:	libsodium >= 1.0.14
-Requires:	libsoup >= 2.39.1
 Requires:	xz-libs >= 1:5.0.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -174,14 +175,17 @@ sed -e 's,$(libbsdiff_srcpath),bsdiff,g' < bsdiff/Makefile-bsdiff.am >bsdiff/Mak
 %{__autoconf}
 %{__autoheader}
 %{__automake}
+# use curl in libostree to avoid libsoup2/libsoup3 conflicts in clients
 %configure \
 	GJS=/usr/bin/gjs \
 	--enable-gtk-doc \
 	--disable-silent-rules \
 	%{?with_static_libs:--enable-static} \
+	--with-curl \
 	--with-dracut \
 	--with-ed25519-libsodium \
 	--with-html-dir=%{_gtkdocdir} \
+	--with-soup3 \
 	--with-systemdsystemunitdir=%{systemdunitdir}
 %{__make}
 
