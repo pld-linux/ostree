@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2023.5
+Version:	2023.7
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	ef438168c8e43fc9986b9333cda26504
+# Source0-md5:	343d92730484b0ed7052c51a8393b59e
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -212,8 +212,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libostree-1.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libostree-1.so.1
 %{_libdir}/girepository-1.0/OSTree-1.0.typelib
-%dir %{_libexecdir}/libostree
-%attr(755,root,root) %{_libexecdir}/libostree/ostree-trivial-httpd
 %{_datadir}/ostree
 %{_mandir}/man1/ostree.1*
 %{_mandir}/man1/ostree-*.1*
