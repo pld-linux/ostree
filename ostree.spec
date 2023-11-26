@@ -6,7 +6,7 @@ Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
 Version:	2023.7
-Release:	4
+Release:	5
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
@@ -239,6 +239,7 @@ rm -rf $RPM_BUILD_ROOT
 %files grub2
 %defattr(644,root,root,755)
 /lib/grub.d/15_ostree
+%dir %{_libexecdir}/libostree
 %attr(755,root,root) %{_libexecdir}/libostree/grub2-15_ostree
 
 %files -n bash-completion-ostree
