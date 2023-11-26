@@ -6,7 +6,7 @@ Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
 Version:	2023.7
-Release:	2
+Release:	3
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
