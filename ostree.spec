@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2023.7
-Release:	6
+Version:	2024.7
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	343d92730484b0ed7052c51a8393b59e
+# Source0-md5:	edaee8d3bb4cbf8b57c5d2c35db248f7
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -25,6 +25,7 @@ BuildRequires:	automake >= 1:1.13
 BuildRequires:	avahi-devel >= 0.6.31
 BuildRequires:	avahi-glib-devel >= 0.6.31
 BuildRequires:	bison
+BuildRequires:	composefs-devel
 BuildRequires:	curl-devel >= 7.29.0
 BuildRequires:	e2fsprogs-devel
 BuildRequires:	glib2-devel >= 1:2.66.0
@@ -41,6 +42,8 @@ BuildRequires:	libsodium-devel >= 1.0.14
 BuildRequires:	libsoup3-devel >= 3.0.0
 BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
+# <linux/fsverity.h>
+BuildRequires:	linux-libc-headers >= 7:5.4
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.644
@@ -257,8 +260,10 @@ rm -rf $RPM_BUILD_ROOT
 %{systemdunitdir}/ostree-finalize-staged-hold.service
 %{systemdunitdir}/ostree-prepare-root.service
 %{systemdunitdir}/ostree-remount.service
+%{systemdunitdir}/ostree-state-overlay@.service
 %{systemdtmpfilesdir}/ostree-tmpfiles.conf
 %attr(755,root,root) /lib/systemd/system-generators/ostree-system-generator
 %dir %{_prefix}/lib/dracut/modules.d/98ostree
 %attr(755,root,root) %{_prefix}/lib/dracut/modules.d/98ostree/module-setup.sh
 %config(noreplace) %verify(not md5 mtime size) /etc/dracut.conf.d/ostree.conf
+%{_mandir}/man8/ostree-state-overlay@.service.8*
