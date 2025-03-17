@@ -160,7 +160,7 @@ Obsługa OSTree dla Dracuta.
 
 %prep
 %setup -q -n libostree-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 # for non-release checkouts
 #rmdir libglnx bsdiff
