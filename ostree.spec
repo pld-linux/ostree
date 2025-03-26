@@ -5,13 +5,13 @@
 Summary:	OSTree - Git for operating system binaries
 Summary(pl.UTF-8):	OSTree - Git dla binariów systemów operacyjnych
 Name:		ostree
-Version:	2025.1
+Version:	2025.2
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/ostreedev/ostree/releases
 Source0:	https://github.com/ostreedev/ostree/releases/download/v%{version}/libostree-%{version}.tar.xz
-# Source0-md5:	c99adc8cafde4f134cb0b5eaad010576
+# Source0-md5:	dc5346ab549b51ea1765514ca6874677
 # for non-release checkouts
 #Source1:	https://github.com/GNOME/libglnx/archive/03138641298fd6799f46b16423871f959332bacf/libglnx.tar.gz
 ## Source1-md5:	c7234e0156af5480e9fa8eef85f7d107
@@ -255,7 +255,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_prefix}/lib/ostree/ostree-prepare-root
 %attr(755,root,root) %{_prefix}/lib/ostree/ostree-remount
 %{systemdunitdir}/ostree-boot-complete.service
-%{systemdunitdir}/ostree-finalize-staged.path
 %{systemdunitdir}/ostree-finalize-staged.service
 %{systemdunitdir}/ostree-finalize-staged-hold.service
 %{systemdunitdir}/ostree-prepare-root.service
